@@ -18,7 +18,14 @@ namespace CCAD
         [CommandMethod("CCAD", "INSERTBLOCKTOPOINT", CommandFlags.Modal)]
         public void InsertBlockToPoint()
         {
-            InsertBlockToPointCommand cmd = new InsertBlockToPointCommand();
+            ICADCommand cmd = new InsertBlockToPointCommand();
+            cmd.Execute();
+        }
+
+        [CommandMethod("CCAD", "COORDZTOZERO", CommandFlags.Modal)]
+        public void CoordZToZero()
+        {
+            ICADCommand cmd = new CoordZToZeroCommand();
             cmd.Execute();
         }
     }

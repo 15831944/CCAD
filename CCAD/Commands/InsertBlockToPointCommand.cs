@@ -10,7 +10,7 @@ using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace CCAD.Commands
 {
-    public class InsertBlockToPointCommand
+    public class InsertBlockToPointCommand : ICADCommand
     {
         private enum DeleteType
         {

@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCADCommands.cs" />
+    <Compile Include="Commands\CoordZToZeroCommand.cs" />
+    <Compile Include="Commands\ICADCommand.cs" />
     <Compile Include="Commands\InsertBlockToPointCommand.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
