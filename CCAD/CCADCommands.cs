@@ -28,5 +28,12 @@ namespace CCAD
             ICADCommand cmd = new CoordZToZeroCommand();
             cmd.Execute();
         }
+
+        [CommandMethod("CCAD", "REPLACEBLOCK", CommandFlags.Modal)]
+        public void ReplaceBlock()
+        {
+            ICADCommand cmd = new ReplaceBlockCommand();
+            cmd.Execute();
+        }
     }
 }

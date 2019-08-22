@@ -71,28 +71,55 @@
       <HintPath>..\packages\AutoCAD.ObjectARX.2016.1.0.0\lib\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCADCommands.cs" />
     <Compile Include="Commands\CoordZToZeroCommand.cs" />
     <Compile Include="Commands\ICADCommand.cs" />
     <Compile Include="Commands\InsertBlockToPointCommand.cs" />
+    <Compile Include="Commands\ReplaceBlockCommand.cs" />
+    <Compile Include="Commands\TextStyleManager.cs" />
+    <Compile Include="DataType\FontCheckResult.cs" />
+    <Compile Include="DataType\FontStyleInfo.cs" />
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="Forms\FontStyleInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FontStyleInfoForm.Designer.cs">
+      <DependentUpon>FontStyleInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TextStyleManagerWindow.xaml.cs">
+      <DependentUpon>TextStyleManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Forms\TextStyleManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\FontStyleInfoForm.resx">
+      <DependentUpon>FontStyleInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
