@@ -81,6 +81,21 @@ namespace CCAD.Commands
                 return  new Point3d(ptWCS.X, ptWCS.Y, 0);
             }
         }
+
+        private double GetZ0elevation(Matrix3d wcs2ucs, Matrix3d ucsSystem, Vector3d normalInWCS)
+        {
+            double elevation = 0;
+            if (CoordType == CoordTypeEnum.UCS)
+            {
+                // 求原点在UCS上的投影点，然后与OCS平面向量（单位向量）点乘则得标高。
+                Point3d ptUZ = Point3d.Origin.TransformBy(wcs2ucs);
+                ptUZ = new Point3d(ptUZ.X, ptUZ.Y, 0);
+                Point3d ptWZ = ptUZ.TransformBy(ucsSystem);
+                Vector3d vec = ptWZ - Point3d.Origin;
+                elevation = vec.DotProduct(normalInWCS);
+            }
+            return elevation;
+        }
         public void Execute()
         {
             /// promote:
@@ -170,6 +185,27 @@ namespace CCAD.Commands
                             pline.Elevation = elevation;
                             continue;
                         }
+
+                        RotatedDimension rd = ent as RotatedDimension;
+                        if (rd != null)
+                        {
+                            rd.DimLinePoint = GetZ0Point(rd.DimLinePoint, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            rd.XLine1Point = GetZ0Point(rd.XLine1Point, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            rd.XLine2Point = GetZ0Point(rd.XLine2Point, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            rd.Elevation = GetZ0elevation(wcs2ucs, ed.CurrentUserCoordinateSystem, rd.Normal);
+                            continue;
+                        }
+
+                        AlignedDimension ad = ent as AlignedDimension;
+                        if (ad != null)
+                        {
+                            ad.DimLinePoint = GetZ0Point(ad.DimLinePoint, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            ad.XLine1Point = GetZ0Point(ad.XLine1Point, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            ad.XLine2Point = GetZ0Point(ad.XLine2Point, wcs2ucs, ed.CurrentUserCoordinateSystem);
+                            ad.Elevation = GetZ0elevation(wcs2ucs, ed.CurrentUserCoordinateSystem, ad.Normal);
+                            continue;
+                        }
+
                     }
                 }
                 acTrans.Commit();
